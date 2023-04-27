@@ -1,0 +1,1 @@
+add-migration DeleteUserInfoInDetails -o DAL\Database\Migrations
