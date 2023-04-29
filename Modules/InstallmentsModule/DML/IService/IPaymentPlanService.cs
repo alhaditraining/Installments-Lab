@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace InstallmentsModule.DML.IService
 {
-    public interface IPaymentPlanService: ICRUDService<PaymentPlan,CreatePaymentPlanDto,UpdatePaymentPlanDto,MainFilterDto>
+    public interface IPaymentPlanService: ICRUDService<PaymentPlan, CreatePaymentPlanDto,UpdatePaymentPlanDto, GetPaymentPlanListDto, PaymentPlanFilterDto>
     {
         public Task<PaymentPlan> GetPaymentPlanByBillAsync(string billId,string billTypeId);
         public Task DeletePaymentPlanByBillAsync(string billId, string billTypeId);

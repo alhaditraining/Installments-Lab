@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace InstallmentsModule.DML.IService
 {
-    public interface IAccountService: ICRUDService<Account, CreateAccountDto, UpdateAccountDto,MainFilterDto>
+    public interface IAccountService: ICRUDService<Account, CreateAccountDto, UpdateAccountDto,Account,MainFilterDto>
     {
         public Task DeleteByRefId(string refId);
     }

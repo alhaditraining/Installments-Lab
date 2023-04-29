@@ -4,6 +4,7 @@ using InstallmentsModule.DAL.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InstallmentsModule.DAL.Database.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230427142731_RenameAccountIdTAccountRefId")]
+    partial class RenameAccountIdTAccountRefId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,41 +33,29 @@ namespace InstallmentsModule.DAL.Database.Migrations
 
                     b.Property<string>("CreatedByUserId")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("CreatedDatetime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("LastUpdateByUserId")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset?>("LastUpdateDatetime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RefId")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("RowVersion")
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CreatedByUserId");
-
-                    b.HasIndex("CreatedDatetime");
-
-                    b.HasIndex("LastUpdateByUserId");
-
-                    b.HasIndex("LastUpdateDatetime");
 
                     b.ToTable("Accounts", "InstallmentsModule");
                 });
@@ -78,21 +68,17 @@ namespace InstallmentsModule.DAL.Database.Migrations
 
                     b.Property<string>("AccountRefId")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BillId")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BillTypeId")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreatedByUserId")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("CreatedDatetime")
                         .HasColumnType("datetimeoffset");
@@ -101,8 +87,7 @@ namespace InstallmentsModule.DAL.Database.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("LastUpdateByUserId")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset?>("LastUpdateDatetime")
                         .HasColumnType("datetimeoffset");
@@ -120,22 +105,6 @@ namespace InstallmentsModule.DAL.Database.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AccountRefId");
-
-                    b.HasIndex("CreatedByUserId");
-
-                    b.HasIndex("CreatedDatetime");
-
-                    b.HasIndex("Datetime");
-
-                    b.HasIndex("LastUpdateByUserId");
-
-                    b.HasIndex("LastUpdateDatetime");
-
-                    b.HasIndex("BillId", "BillTypeId")
-                        .IsUnique()
-                        .HasFilter("BillId IS NOT NULL and BillTypeId IS NOT NULL");
 
                     b.ToTable("PaymentPlan", "InstallmentsModule");
                 });

@@ -7,6 +7,7 @@ using InstallmentsModule.Shared.Dtos;
 using InstallmentsModule.Shared.Exceptions;
 using InstallmentsModule.Shared.Service;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer.ValueGeneration.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,11 +26,11 @@ namespace InstallmentsModule.DAL.Service
         }
 
         public async Task AddPayByBillAsync(AddPayByBillDto dto)
-        {
-           
+        {      
             var entity = await GetPaymentPlanByBillAsync(dto.BillId,dto.BillTypeId);
             addPayValidation(entity, dto.PaiedAmount);
             dto.AsEntity(entity);
+            await PaymentPlanDetailsService.UpdateAsync(entity.Id, entity.PaymentPlanDetails);
         }
         private void addPayValidation(PaymentPlan entity, decimal paiedAmount)
         {
@@ -87,9 +88,43 @@ namespace InstallmentsModule.DAL.Service
             throw new CustomException("هذا القسط غير موجود");
         }
 
-        public Task<List<PaymentPlan>> GetListAsync(MainFilterDto dto)
+        public async Task<List<GetPaymentPlanListDto>> GetListAsync(PaymentPlanFilterDto dto)
         {
-            throw new NotImplementedException();
+            var result =  await Context.PaymentPlan
+                         .Where(a => dto.FromDatetime != null && dto.FromDatetime <= a.Datetime)
+                         .Where(a => dto.ToDatetime != null && dto.ToDatetime >= a.Datetime)
+
+                         .Where(a => dto.AccountId != null && dto.AccountId == a.AccountRefId)
+
+                         .Where(a => dto.CreatedByUserId != null && dto.CreatedByUserId == a.CreatedByUserId)
+                         .Where(a => dto.LastUpdateByUserId != null && dto.LastUpdateByUserId == a.LastUpdateByUserId)
+
+                         .Where(a => dto.FromCreateDate != null && dto.FromCreateDate <= a.CreatedDatetime)
+                         .Where(a => dto.ToCreateDate != null && dto.ToCreateDate >= a.CreatedDatetime)
+
+                         .Where(a => dto.FromLastUpdateDate != null && dto.FromLastUpdateDate <= a.Datetime)
+                         .Where(a => dto.ToLastUpdateDate != null && dto.ToLastUpdateDate >= a.Datetime)
+
+                         .Join(Context.Accounts,
+                          PaymentPlan => PaymentPlan.AccountRefId,
+                          Accounts => Accounts.RefId,
+                          (PaymentPlan, Accounts) => 
+                          new GetPaymentPlanListDto{  
+                          Id = PaymentPlan.Id,
+                          Datetime = PaymentPlan.Datetime,
+                          CreatedDatetime = PaymentPlan.CreatedDatetime,
+                          CreatedByUserId = PaymentPlan.CreatedByUserId,
+                          AccountName = Accounts.Name,
+                          AccountRefId = PaymentPlan.AccountRefId,
+                          LastUpdateDatetime = PaymentPlan.LastUpdateDatetime,
+                          LastUpdateByUserId = PaymentPlan.LastUpdateByUserId,
+                          BillId = PaymentPlan.BillId,
+                          BillTypeId = PaymentPlan.BillTypeId,
+                          TotalAmount = PaymentPlan.TotalAmount,
+                          TotalPaiedAmount = PaymentPlan.TotalPaiedAmount,
+                          TotalRemainingAmount = PaymentPlan.TotalRemainingAmount
+                          }).ToListAsync();
+            return result;
         }
 
         public async Task<PaymentPlan> GetPaymentPlanByBillAsync(string billId, string billTypeId)
@@ -121,6 +156,7 @@ namespace InstallmentsModule.DAL.Service
             if (totalAmount < 1)
                 throw new CustomException("يجب ان يكون مجموع المبلغ اكبر من صفر");
         }
+
 
     }
 }
