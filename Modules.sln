@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		MigrationCommand.txt = MigrationCommand.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary1", "ClassLibrary1\ClassLibrary1.csproj", "{BA779B13-9156-4BFB-8436-A4269DD07A68}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,12 +30,17 @@ Global
 		{951BEDFE-69DD-4ED7-A7E4-140F95DE4BE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{951BEDFE-69DD-4ED7-A7E4-140F95DE4BE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{951BEDFE-69DD-4ED7-A7E4-140F95DE4BE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA779B13-9156-4BFB-8436-A4269DD07A68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA779B13-9156-4BFB-8436-A4269DD07A68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA779B13-9156-4BFB-8436-A4269DD07A68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA779B13-9156-4BFB-8436-A4269DD07A68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B4B27E42-90D7-4FE0-B499-E7915C3DFF6D} = {95DEED5A-84AB-4EF7-9CD4-CBF9FC4D75F4}
+		{BA779B13-9156-4BFB-8436-A4269DD07A68} = {95DEED5A-84AB-4EF7-9CD4-CBF9FC4D75F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {251CFE81-F3B4-4B45-8D22-D60436F358AD}

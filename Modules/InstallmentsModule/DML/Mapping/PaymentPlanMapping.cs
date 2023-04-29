@@ -24,7 +24,7 @@ namespace InstallmentsModule.DML.Mapping
             var totalAmount = dto.PaymentPlanDetails.Sum(a => a.Amount);
             var entity = new PaymentPlan
             {
-                AccountId = dto.AccountId,
+                AccountRefId = dto.AccountRefId,
                 Id = Guid.NewGuid(),
                 Datetime = dto.Datetime,
                 TotalAmount = totalAmount,
@@ -46,7 +46,7 @@ namespace InstallmentsModule.DML.Mapping
 
         private static void headerAsEntity(this UpdatePaymentPlanDto dto, PaymentPlan entity)
         {
-            entity.AccountId = dto.AccountId;
+            entity.AccountRefId = dto.AccountRefId;
             entity.Datetime = dto.Datetime;
             entity.TotalAmount = dto.Amount;
             entity.BillId = dto.BillId;

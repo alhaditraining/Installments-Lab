@@ -9,6 +9,7 @@ namespace InstallmentsModule.DML.Dtos.PaymentPlan
 {
     public class AddPayByIdDto
     {
+        [MaxLength(50)]
         public string? UserId { get; set; } = null;
         [Required]
         public Guid Id { get; set; }

@@ -13,13 +13,17 @@ namespace InstallmentsModule.DML.Dtos.PaymentPlan
         [Required]
         public Guid Id { get; set; }
         [Required]
-        public string AccountId { get; set; } = String.Empty;
+        [MaxLength(50)]
+        public string AccountRefId { get; set; } = String.Empty;
         [Required]
         public DateTimeOffset Datetime { get; set; }
         [Required]
         public decimal Amount { get; set; }
+        [MaxLength(50)]
         public string? BillTypeId { get; set; } = null;
+        [MaxLength(50)]
         public string? BillId { get; set; } = null;
+        [MaxLength(50)]
         public string? UserId { get; set; } = null;
         [Required]
         public List<PaymentPlanDetailsDto> PaymentPlanDetails { get; set; } = new List<PaymentPlanDetailsDto>();

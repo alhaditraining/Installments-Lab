@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace InstallmentsModule.DAL.Database
 {
@@ -22,6 +23,22 @@ namespace InstallmentsModule.DAL.Database
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.HasDefaultSchema("InstallmentsModule");
+
+
+            //PaymentPlan 
+            modelBuilder.Entity<PaymentPlan>().HasIndex(e => new { e.BillId, e.BillTypeId }).HasFilter("BillId IS NOT NULL and BillTypeId IS NOT NULL").IsUnique();
+            modelBuilder.Entity<PaymentPlan>().HasIndex(e => new { e.AccountRefId });
+            modelBuilder.Entity<PaymentPlan>().HasIndex(e => new { e.Datetime });
+            modelBuilder.Entity<PaymentPlan>().HasIndex(e => new { e.CreatedByUserId });
+            modelBuilder.Entity<PaymentPlan>().HasIndex(e => new { e.LastUpdateByUserId });
+            modelBuilder.Entity<PaymentPlan>().HasIndex(e => new { e.CreatedDatetime });
+            modelBuilder.Entity<PaymentPlan>().HasIndex(e => new { e.LastUpdateDatetime });
+
+            //Account 
+            modelBuilder.Entity<Account>().HasIndex(e => new { e.CreatedByUserId });
+            modelBuilder.Entity<Account>().HasIndex(e => new { e.LastUpdateByUserId });
+            modelBuilder.Entity<Account>().HasIndex(e => new { e.CreatedDatetime });
+            modelBuilder.Entity<Account>().HasIndex(e => new { e.LastUpdateDatetime });
         }
     }
 }

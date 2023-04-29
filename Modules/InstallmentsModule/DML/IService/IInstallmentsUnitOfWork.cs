@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace InstallmentsModule.DML.IService
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IInstallmentsUnitOfWork //: IDisposable
     {
         IAccountService AccountService { get; }
-        IPaymentPlanDetailsService PaymentPlanDetailsService { get; }
         IPaymentPlanService PaymentPlanService { get; }
 
         Task SaveChangesAsync();
